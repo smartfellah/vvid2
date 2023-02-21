@@ -1,10 +1,19 @@
 import React from "react";
-import styles from "./app.module.css";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import * as Pages from "../../pages/index";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { AppHeader } from "../app-header/app-header";
 
 export function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
-    </div>
+    <Router>
+      <DndProvider backend={HTML5Backend}>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<Pages.Home />}></Route>
+        </Routes>
+      </DndProvider>
+    </Router>
   );
 }
