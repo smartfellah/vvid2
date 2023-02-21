@@ -19,7 +19,8 @@
   --bg-primary: #111f26;
   --bg-secondary: #1c1c21;
   --text-primary: #f2f2f3;
-  --text-accent: #009c4f;
+  /* --text-accent: #009c4f; */
+  --text-accent: #00ff00a9;
 }
 body {
   height: 100%;

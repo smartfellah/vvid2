@@ -10,13 +10,17 @@ export function AppHeader() {
       <div className={`${styles["navbar"]}`}>
         <NavLink to="/" end>
           {({ isActive }) => {
-            return <Logo isActive={isActive} />;
+            return (
+              <div className={`${styles["logo-box"]}`}>
+                <Logo isActive={false} />
+              </div>
+            );
           }}
         </NavLink>
         <nav className={`${styles["navbar_menu-container"]}`}>
           <ul className={`${styles["navbar_menu"]}`}>
             <li className={`${styles["menu-item"]}`}>
-              <NavLink to="/home" end>
+              <NavLink to="/" end>
                 {({ isActive }) => {
                   return (
                     <div

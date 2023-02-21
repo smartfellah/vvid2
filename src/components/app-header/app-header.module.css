@@ -9,20 +9,29 @@
 .navbar {
   display: flex;
   width: 1280px;
-  padding-block: var(--s-4);
 }
 .navbar_menu-container {
   width: 100%;
 }
 .navbar_menu {
+  font-weight: 100;
   height: 100%;
-  width: 40%;
   margin-left: auto;
   display: flex;
   justify-content: flex-end;
   gap: var(--s-8);
   align-items: center;
   color: var(--text-primary);
+}
+.logo-box {
+  padding-block: var(--s-4);
+}
+.menu-item {
+  padding-block: var(--s-4);
+  padding: var(--s-4);
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 .menu-item_content {
   color: var(--text-primary);
