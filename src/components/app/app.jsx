@@ -13,9 +13,12 @@ export function App() {
         <Routes>
           <Route path="/" element={<Pages.Home />} />
           <Route path="/profile" element={<Pages.Profile />}>
-            <Route index element={<Pages.Profile />} />
-            <Route path="snippet-redactor" element={<Pages.Profile />} />
-            <Route path="options" element={<Pages.Profile />} />
+            <Route index element={null} />
+            <Route
+              path="snippet-redactor"
+              element={<Pages.SnippetRedactor />}
+            />
+            <Route path="options" element={null} />
           </Route>
         </Routes>
       </DndProvider>
