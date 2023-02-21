@@ -71,7 +71,7 @@ export function AppHeader() {
               </NavLink>
             </li>
             <li className={`${styles["menu-item"]}`}>
-              <NavLink to="/profile" end>
+              <NavLink to="/profile">
                 {({ isActive }) => {
                   return <ProfileIcon isActive={isActive} />;
                 }}

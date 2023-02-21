@@ -11,7 +11,12 @@ export function App() {
       <DndProvider backend={HTML5Backend}>
         <AppHeader />
         <Routes>
-          <Route path="/" element={<Pages.Home />}></Route>
+          <Route path="/" element={<Pages.Home />} />
+          <Route path="/profile" element={<Pages.Profile />}>
+            <Route index element={<Pages.Profile />} />
+            <Route path="snippet-redactor" element={<Pages.Profile />} />
+            <Route path="options" element={<Pages.Profile />} />
+          </Route>
         </Routes>
       </DndProvider>
     </Router>

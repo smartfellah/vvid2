@@ -1,0 +1,20 @@
+.profile-header {
+  font-family: "Comfortaa", Arial, Helvetica, sans-serif;
+  background-color: var(--bg-grey);
+  height: var(--l-2);
+  display: flex;
+  justify-content: center;
+}
+.profile-nav {
+  display: flex;
+  gap: var(--s-8);
+}
+.profile-nav_item {
+  display: flex;
+  align-items: center;
+}
+.nav-item_link {
+}
+.nav-item_link_active {
+  text-decoration: underline var(--bg-primary);
+}
