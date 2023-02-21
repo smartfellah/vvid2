@@ -1,0 +1,32 @@
+.header {
+  font-family: "Comfortaa", Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar {
+  display: flex;
+  width: 1280px;
+  padding-block: var(--s-4);
+}
+.navbar_menu-container {
+  width: 100%;
+}
+.navbar_menu {
+  height: 100%;
+  width: 40%;
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s-8);
+  align-items: center;
+  color: var(--text-primary);
+}
+.menu-item_content {
+  color: var(--text-primary);
+}
+.menu-item_content_active {
+  color: var(--text-accent);
+}
