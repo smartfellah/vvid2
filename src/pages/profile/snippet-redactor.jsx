@@ -2,9 +2,13 @@ import { useEffect, useState, Fragment } from "react";
 import { apiRequest } from "../../utils/api-request";
 import { dataURL } from "../../utils/apiURL";
 import styles from "./styles/snippet-redactor.module.css";
+
+import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
 export function SnippetRedactor() {
   const [snippetData, setSnippetData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [code, setCode] = useState(`function add(a, b) {\n return a + b;\n}`);
 
   async function getSnippetData() {
     setIsLoading(true);
@@ -54,7 +58,12 @@ export function SnippetRedactor() {
                 }}
               >
                 <p style={{ padding: "var(--s-4)" }}> {snippet.title}</p>
-                <p style={{ padding: "var(--s-4)" }}>{snippet.code}</p>
+                <Editor
+                  height="720px"
+                  width="100%"
+                  defaultLanguage="rust"
+                  defaultValue={snippet.code}
+                />
                 <p style={{ padding: "var(--s-4)" }}>
                   {snippet.platformType === 1 ? "Solana" : "Hyperledger Fabric"}
                 </p>
