@@ -14,7 +14,6 @@ export function useForm(initFormState) {
       value = target.value;
     } else value = target.value;
 
-    console.log(value, name);
     setValues({ ...values, [name]: value });
   };
 
