@@ -20,8 +20,8 @@
   --bg-secondary: #f8f5f5;
   --bg-grey: #eeeeee;
   --text-primary: #f2f2f3;
-  /* --text-accent: #009c4f; */
-  --text-accent: #00ff00a9;
+  --text-accent: #009c4f;
+  /* --text-accent: #00ff00a9; */
 }
 body {
   height: 100%;

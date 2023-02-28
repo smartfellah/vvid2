@@ -12,6 +12,7 @@ export function App() {
         <AppHeader />
         <Routes>
           <Route path="/" element={<Pages.Home />} />
+          <Route path="/constructor" element={<Pages.Constructor />} />
           <Route path="/profile" element={<Pages.Profile />}>
             <Route index element={null} />
             <Route
