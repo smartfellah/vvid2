@@ -1,7 +1,33 @@
 import styles from "../styles/constructor.module.css";
 import { useForm } from "./hooks/useForm";
+import { CodeBlock } from "../../components/code-block/code-block";
 
 export function Constructor() {
+  const code = `use solana_program::{
+    account_info::AccountInfo,
+    entrypoint,
+    entrypoint::ProgramResult,
+    pubkey::Pubkey,
+    msg,
+};
+
+// declare and export the program's entrypoint
+entrypoint!(process_instruction);
+
+// program entrypoint's implementation
+pub fn process_instruction(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    instruction_data: &[u8]
+) -> ProgramResult {
+    // log a message to the blockchain
+    msg!("Hello, world!");
+
+    // gracefully exit the program
+    Ok(())
+}
+  `;
+
   const { values, handleChange } = useForm({
     settingsTextField_left: "",
     settingsTextField_right: "",
@@ -185,7 +211,7 @@ export function Constructor() {
           </section>
         </div>
         <div className={`${styles["body_output"]}`}>
-          <code>Something</code>
+          <CodeBlock code={code} language="rust" />
         </div>
       </div>
     </div>
