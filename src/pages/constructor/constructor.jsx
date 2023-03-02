@@ -1,32 +1,13 @@
 import styles from "../styles/constructor.module.css";
 import { useForm } from "./hooks/useForm";
+import { useEffect } from "react";
 import { CodeBlock } from "../../components/code-block/code-block";
+import { useDispatch } from "react-redux";
+import { FORM_CHANGED } from "../../services/actions/constructor-actions";
+import Prism from "prismjs";
 
 export function Constructor() {
-  const code = `use solana_program::{
-    account_info::AccountInfo,
-    entrypoint,
-    entrypoint::ProgramResult,
-    pubkey::Pubkey,
-    msg,
-};
-
-// declare and export the program's entrypoint
-entrypoint!(process_instruction);
-
-// program entrypoint's implementation
-pub fn process_instruction(
-    program_id: &Pubkey,
-    accounts: &[AccountInfo],
-    instruction_data: &[u8]
-) -> ProgramResult {
-    // log a message to the blockchain
-    msg!("Hello, world!");
-
-    // gracefully exit the program
-    Ok(())
-}
-  `;
+  const dispatch = useDispatch();
 
   const { values, handleChange } = useForm({
     settingsTextField_left: "",
@@ -41,7 +22,109 @@ pub fn process_instruction(
     info1: "",
     info2: "",
   });
+  const code = `use solana_program::{
+    account_info::AccountInfo,
+    entrypoint,
+    entrypoint::ProgramResult,
+    pubkey::Pubkey,
+    msg,
+};
 
+${values.settingsTextField_left}
+
+// declare and export the program's entrypoint
+entrypoint!(process_instruction);
+
+${
+  values.checkbox1
+    ? `//Это просто тесты они тут не нужны
+pub fn add(left: usize, right: usize) -> usize {
+    left + right
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        let result = add(2, 2);
+        assert_eq!(result, 4);
+    }
+}
+//Это просто тесты они тут не нужны
+
+use solana_program::{
+    account_info::{next_account_info, AccountInfo},     //AccountInfo - Структура данных (инфо об аккаунте), next_account-info - ф-ция позволяющая получить следующий элемент в итераторе с AccountInfo
+    entrypoint, //указывает на ф-ция-обработчик инструкции
+    entrypoint::ProgramResult,  //Возвращаемый тип
+    program::invoke,    //ф-ция вызова межпрограммных инструкций
+    program_error::ProgramError,        //enum с ошибками программы
+    pubkey::Pubkey,     //Структура данных с инфомрацией об аккаунте
+    system_instruction,     //модуль для взаимодействия с System program.
+};
+
+entrypoint!(process_instruction);
+
+pub fn process_instruction (
+    _program_id: &Pubkey,   //Адрес программы
+    accounts: &[AccountInfo],   //массив аккаунтов
+    instruction_data: &[u8],        //произвольный набор байтов
+) -> ProgramResult {
+    //Итератор
+    let accounts_iter = &mut accounts.iter();
+    //аккаунт отправителя
+    let sender = next_account_info(accounts_iter)?;
+    //аккаунт получателя
+    let destination = next_account_info(accounts_iter)?;
+
+    //Десериализируем набор байтов (я не знаю как это работает)
+    let amount = instruction_data
+    .get(..8)
+    .and_then(|slice| slice.try_into().ok())
+    .map(u64::from_le_bytes)
+    .ok_or(ProgramError::InvalidInstructionData)?;
+
+    //Инструкция о переводе lamports
+    let transfer_instruction = system_instruction::transfer(
+        sender.key,     //публичный адрес отправителя
+        destination.key,    //публичный адрес получателя
+        amount  //кол-во lamorts
+    );
+    //вызов межпрограммной инструкции на перевод  sol через System Program
+    invoke(
+        &transfer_instruction,
+        &[sender.clone(), destination.clone()], //Передаем аккаунты получателя и отправителя
+    )?;
+
+    Ok(())
+}
+
+
+`
+    : ""
+}
+// program entrypoint's implementation
+pub fn process_instruction(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    instruction_data: &[u8]
+) -> ProgramResult {
+    // log a message to the blockchain
+    msg!("Hello, world!");
+
+    // gracefully exit the program
+    Ok(())
+}
+  `;
+
+  function onFormChange(e) {
+    handleChange(e);
+    dispatch({ type: FORM_CHANGED, payload: values });
+  }
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [values]);
   return (
     <div className={`${styles.constructor_container}`}>
       {/* Constructor header */}
@@ -76,7 +159,7 @@ pub fn process_instruction(
               <label>
                 <span className={`${styles["label-span"]}`}>Имя</span>
                 <input
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   className={`${styles["text-input"]}`}
                   value={values.settingsTextField_left}
                   name="settingsTextField_left"
@@ -86,7 +169,7 @@ pub fn process_instruction(
                 {" "}
                 <span className={`${styles["label-span"]}`}>Символ</span>
                 <input
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value={values.settingsTextField_right}
                   name="settingsTextField_right"
                   className={`${styles["text-input"]}`}
@@ -96,7 +179,7 @@ pub fn process_instruction(
             <label>
               <span className={`${styles["label-span"]}`}>Символ</span>
               <input
-                onChange={handleChange}
+                onChange={onFormChange}
                 value={values.settingsTextField_bottom}
                 name="settingsTextField_bottom"
                 className={`${styles["text-input"]}`}
@@ -111,7 +194,7 @@ pub fn process_instruction(
                 <input
                   className={`${styles["checkmark"]}`}
                   type="checkbox"
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value={values.checkbox1}
                   name="checkbox1"
                 />
@@ -121,7 +204,7 @@ pub fn process_instruction(
                 <input
                   className={`${styles["checkmark"]}`}
                   type="checkbox"
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value={values.checkbox2}
                   name="checkbox2"
                 />
@@ -131,7 +214,7 @@ pub fn process_instruction(
                 <input
                   className={`${styles["checkmark"]}`}
                   type="checkbox"
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value={values.checkbox3}
                   name="checkbox3"
                 />
@@ -141,7 +224,7 @@ pub fn process_instruction(
                 <input
                   className={`${styles["checkmark"]}`}
                   type="checkbox"
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value={values.checkbox4}
                   name="checkbox4"
                 />
@@ -151,7 +234,7 @@ pub fn process_instruction(
                 <input
                   className={`${styles["checkmark"]}`}
                   type="checkbox"
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value={values.checkbox5}
                   name="checkbox5"
                 />
@@ -168,7 +251,7 @@ pub fn process_instruction(
                   className={`${styles["radio-mark"]}`}
                   type="radio"
                   name="radio"
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value="variant1"
                 />
                 Вариант 1
@@ -178,7 +261,7 @@ pub fn process_instruction(
                   className={`${styles["radio-mark"]}`}
                   type="radio"
                   name="radio"
-                  onChange={handleChange}
+                  onChange={onFormChange}
                   value="variant2"
                 />
                 Вариант 2
@@ -191,9 +274,9 @@ pub fn process_instruction(
             <label>
               <span className={`${styles["label-span"]}`}>Инфо 1</span>
               <input
-                onChange={handleChange}
+                onChange={onFormChange}
                 name="info1"
-                value={values.info2}
+                value={values.info1}
                 className={`${styles["text-input"]}`}
                 placeholder="hmm"
               />
@@ -201,7 +284,7 @@ pub fn process_instruction(
             <label>
               <span className={`${styles["label-span"]}`}>Инфо 2</span>
               <input
-                onChange={handleChange}
+                onChange={onFormChange}
                 name="info2"
                 value={values.info2}
                 className={`${styles["text-input"]}`}
