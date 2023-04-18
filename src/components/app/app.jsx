@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import * as Pages from "../../pages/index";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { AppHeader } from "../app-header/app-header";
 import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
+import { useDispatch } from "react-redux";
+import { sendRequest } from "../../services/actions/auth-actions";
 
 export function App() {
   return (
@@ -25,8 +27,18 @@ export function App() {
             />
             <Route path="options" element={null} />
           </Route>
-          <Route path="/login" element={<Pages.Login />} />
-          <Route path="/register" element={<Pages.Register />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRouteElement element={<Pages.Login />} unAuthOnly />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <ProtectedRouteElement element={<Pages.Register />} unAuthOnly />
+            }
+          />
         </Routes>
       </DndProvider>
     </Router>

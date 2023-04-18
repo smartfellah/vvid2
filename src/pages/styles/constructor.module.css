@@ -21,13 +21,13 @@
 }
 .lang-menu_button {
   color: var(--bg-primary);
-  font-weight: 500;
   padding-inline: var(--s-4);
   padding-block: var(--s-2);
-  border-radius: var(--s-1);
+  cursor: pointer;
 }
 .lang-menu_button_active {
-  background-color: var(--text-accent);
+  font-weight: 500;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
 }
 
@@ -37,19 +37,19 @@
 }
 .action-menu_button {
   color: var(--bg-primary);
-  font-weight: 500;
   padding-inline: var(--s-4);
   padding-block: var(--s-2);
-  border-radius: var(--s-1);
+  cursor: pointer;
 }
 .constructor_body {
   width: 100%;
   display: flex;
+  gap: var(--s-4);
 }
 
 .body_controls {
   background-color: #ffffff;
-  border-radius: var(--s-2);
+  /* border-radius: var(--s-2); */
   box-shadow: 0px 0px 4px var(--bg-grey);
   padding: var(--s-4);
   display: flex;
@@ -99,10 +99,7 @@
   background-color: var(--bg-grey);
 }
 .checkbox-container input:checked {
-  background-color: var(--text-accent);
-}
-.checkbox-container:hover input:checked {
-  background-color: var(--text-accent);
+  background-color: var(--bg-primary);
 }
 .checkmark {
   position: absolute;
@@ -127,7 +124,7 @@
   background-color: var(--bg-grey);
 }
 .radio-container input:checked {
-  background-color: var(--text-accent);
+  background-color: var(--bg-primary);
 }
 
 .radio-mark {
@@ -150,7 +147,7 @@
 }
 .text-input {
   padding: var(--s-2);
-  border-radius: var(--s-2);
+  /* border-radius: var(--s-2); */
   width: 0;
   min-width: 100%;
   background-color: #ffffff;

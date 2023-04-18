@@ -1,0 +1,59 @@
+.form-wrapper {
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-grey);
+  background-image: url("https://www.hyperledger.org/wp-content/uploads/2022/09/interoperable-tech-1.png");
+}
+.form_container {
+  margin-top: var(--l-2);
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  border: solid 1px var(--bg-primary);
+  box-shadow: 0px 0px 4px var(--bg-primary);
+  padding: var(--l-4);
+  background-color: #ffffff;
+}
+.form_header {
+  text-align: center;
+  color: var(--bg-primary);
+  font-weight: 700;
+  font-size: 2rem;
+}
+.form_body {
+  border-top: 1px solid var(--bg-grey);
+  padding-top: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.form_buttons {
+  text-align: center;
+  display: flex;
+  gap: var(--s-4);
+}
+
+.input {
+  display: block;
+  margin: 0 auto;
+  padding: var(--s-4);
+  border: 1px solid var(--bg-grey);
+}
+
+.button {
+  padding: var(--s-2);
+  cursor: pointer;
+}
+.button_primary {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+.button_primary:hover {
+  background-color: var(--text-accent);
+  color: var(--text-primary);
+}
+.button_secondary {
+}
